@@ -17,8 +17,8 @@ export class Post {
     @Column()
     description: string
 
-    @ManyToOne(type => Category, category => category.posts, {eager: true})
-    category: Category
+    // @ManyToOne(type => Category, category => category.posts, {eager: true})
+    // category: Category
 
     @Column({
         type: 'enum',
