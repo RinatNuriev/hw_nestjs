@@ -7,28 +7,28 @@ import { Category } from './entities/category.entity';
 
 @Injectable()
 export class CategoryService {
-  constructor(
-    @InjectRepository(Category)
-    private repository: Repository<Category>
-  ) { }
+    constructor(
+        @InjectRepository(Category)
+        private repository: Repository<Category>,
+    ) {}
 
-  create(data: CreateCategoryDto) {
-    return this.repository.save(data);
-  }
+    create(data: CreateCategoryDto) {
+        return this.repository.save(data);
+    }
 
-  findAll() {
-    return this.repository.find();
-  }
+    findAll() {
+        return this.repository.find();
+    }
 
-  findOne(id: number) {
-    return this.repository.findOneBy({ id });
-  }
+    findOne(id: number) {
+        return this.repository.findOneBy({ id });
+    }
 
-  update(id: number, data: UpdateCategoryDto) {
-    return this.repository.save({ ...data, id });
-  }
+    update(id: number, data: UpdateCategoryDto) {
+        return this.repository.save({ ...data, id });
+    }
 
-  async remove(id: number) {
-    await this.repository.delete(id);
-  }
+    async remove(id: number) {
+        await this.repository.delete(id);
+    }
 }

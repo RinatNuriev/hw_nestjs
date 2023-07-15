@@ -5,7 +5,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export enum postStatusEnum {
     DRAW = 'Черновик',
     PUBLISHED = 'Опубликован',
-    DELETE = 'Снят с публикации'
+    DELETE = 'Снят с публикации',
 }
 
 @Entity()
@@ -16,26 +16,28 @@ export class Post {
 
     @ApiProperty()
     @Column()
-    title: string
+    title: string;
 
     @ApiProperty()
     @Column()
-    description: string
+    description: string;
 
-    @ManyToOne(type => Category, category => category.posts, {eager: true})
-    category: Category
+    @ManyToOne((type) => Category, (category) => category.posts, {
+        eager: true,
+    })
+    category: Category;
 
     @ApiProperty()
     @Column({
         type: 'enum',
         enum: postStatusEnum,
-        default: postStatusEnum.DRAW
+        default: postStatusEnum.DRAW,
     })
-    status: postStatusEnum
+    status: postStatusEnum;
 
     @ApiProperty()
     @Column({
-        type: 'datetime'
+        type: 'datetime',
     })
-    changed_at: Date
+    changed_at: Date;
 }

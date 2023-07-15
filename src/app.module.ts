@@ -15,36 +15,36 @@ import { AuthService } from './auth/auth.service';
 import { JwtAuthMiddleware } from './auth/jwt-auth.middleware';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.DB_HOST,
-      port: 3306,
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DBNAME,
-      entities: [Category, Post],
-      synchronize: true,
-    }),
-    CategoryModule,
-    PostsModule,
-    UsersModule,
-    AuthModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService, AuthService],
+    imports: [
+        ConfigModule.forRoot(),
+        TypeOrmModule.forRoot({
+            type: 'mysql',
+            host: process.env.DB_HOST,
+            port: 3306,
+            username: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_DBNAME,
+            entities: [Category, Post],
+            synchronize: true,
+        }),
+        CategoryModule,
+        PostsModule,
+        UsersModule,
+        AuthModule,
+    ],
+    controllers: [AppController],
+    providers: [AppService, AuthService],
 })
 export class AppModule {
-  constructor(private dataSource: DataSource) {}
+    constructor(private dataSource: DataSource) {}
 
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LocalAuthMiddleware)
-      .forRoutes({ path: 'auth/login', method: RequestMethod.POST });
+    configure(consumer: MiddlewareConsumer) {
+        consumer
+            .apply(LocalAuthMiddleware)
+            .forRoutes({ path: 'auth/login', method: RequestMethod.POST });
 
-    consumer
-      .apply(JwtAuthMiddleware)
-      .forRoutes({ path: 'profile', method: RequestMethod.GET });
-  }
+        consumer
+            .apply(JwtAuthMiddleware)
+            .forRoutes({ path: 'profile', method: RequestMethod.GET });
+    }
 }
